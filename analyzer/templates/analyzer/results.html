@@ -1,0 +1,28 @@
+<!-- templates/analyzer/results.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resultados del Análisis</title>
+</head>
+<body>
+    <h1>Resultados del Análisis</h1>
+    <p>Archivo cargado: {{ file.file.name }}</p>
+
+    <h2>Errores encontrados:</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Mostrar Respuesta</button>
+    </form>
+    <ul>
+        {% for error in found_errors %}
+            <li>Line {{ error.line_num }}: {{ error.message }}</li>
+        {% endfor %}
+    </ul>
+
+    {% if answer %}
+        <h2>Respuesta generada:</h2>
+        <p>{{ answer }}</p>
+    {% endif %}
+</body>
+</html>
